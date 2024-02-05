@@ -18,6 +18,10 @@
             "map": {
               "INACTIVE": "off",
               "ACTIVE": "fan_only;heat"
+            },
+            "outMap": {
+              "INACTIVE": "off",
+              "ACTIVE": "fan_only"
             }
           }
         },
@@ -36,9 +40,17 @@
             "topicGet": "(1)/climate/(2)/target_temperature/state",
             "topicSet": "(1)/climate/(2)/target_temperature/command"
           },
-          "minValue": 1,
+          "minValue": 0,
           "maxValue": 30,
           "minStep": 1
+        },
+        {
+          "write": false,
+          "type": "CoolingThresholdTemperature",
+          "link": {
+            "type": "Integer",
+            "topicGet": "(1)/climate/(2)/target_temperature/state"
+          }
         },
         {
           "type": "CurrentHeaterCoolerState",
