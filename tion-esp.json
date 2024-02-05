@@ -97,6 +97,7 @@
         {
           "type": "On",
           "link": {
+            "type": "String",
             "topicGet": "(1)/switch/recirculation/state",
             "topicSet": "(1)/switch/recirculation/command",
             "map": {
