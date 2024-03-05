@@ -140,6 +140,19 @@
       ]
     },
     {
+      "name":"Температура ESP",
+      "type":"TemperatureSensor",
+      "characteristics":[
+        {
+          "type":"CurrentTemperature",
+          "link":{
+            "type":"Double",
+            "topicGet":"(1)/sensor/esp_temperature/state"
+          }
+        }
+      ]
+    },
+    {
       "name": "Обслуживание фильтров",
       "type": "FilterMaintenance",
       "characteristics": [
