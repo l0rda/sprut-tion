@@ -116,11 +116,11 @@
           "type": "On",
           "link": {
             "type": "String",
-            "topicGet": "(1)/climate/(2)/preset/state",
-            "topicSet": "(1)/climate/(2)/preset/command",
+            "topicGet": "(1)/switch/boost/state",
+            "topicSet": "(1)/switch/boost/command",
             "map": {
-              "false": "none",
-              "true": "boost"
+                "false": "OFF",
+                "true": "ON"
             }
           }
         }
