@@ -80,6 +80,7 @@
         },
         {
           "type": "RotationSpeed",
+          "unit": "",
           "link": {
             "type": "Integer",
             "topicGet": "(1)/climate/(2)/fan_mode/state",
