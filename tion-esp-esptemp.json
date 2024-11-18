@@ -183,7 +183,10 @@
             "topicGet": "(1)/button/reset_filter/state",
             "topicSet": "(1)/button/reset_filter/command",
             "outFunc": "'PRESS'"
-          }
+          },
+          "input": "button",
+          "read": false,
+          "value": 1
         }
       ]
     },
@@ -242,23 +245,26 @@
     },
     {
       "link": {
-        "type": "Float",
+        "type": "Double",
         "topicGet": "(1)/number/boost_time/state",
         "topicSet": "(1)/number/boost_time/command"
       },
-      "name": "Турбо, время работы (минут)",
-      "type": "Float",
+      "name": "Турбо, время работы",
+      "type": "Double",
+      "unit": " минут",
       "minValue": 1,
       "maxValue": 20,
       "minStep": 1
     },
     {
       "link": {
-        "type": "Integer",
+        "type": "String",
         "topicGet": "(1)/sensor/filter_time_left/state"
       },
-      "name": "Дней до замены фильтров",
-      "type": "Integer",
+      "name": "До замены фильтров",
+      "unit": " дней",
+      "type": "String",
+      "write": false,
       "input": "status"
     },
     {
@@ -270,8 +276,8 @@
       },
       "type": "Boolean",
       "name": "перезагрузить",
-      "input": "button",
-      "value": ""
+      "inputType": "BUTTON",
+      "value": true
     }
   ]
 }
