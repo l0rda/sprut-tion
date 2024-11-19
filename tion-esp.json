@@ -1,7 +1,7 @@
 {
   "name": "Tion Breezer ESP",
   "manufacturer": "Tion",
-  "model": "3S / 4S",
+  "model": "3S / 4S / Lite / O2 Mac",
   "catalogId": 3910,
   "services": [
     {
@@ -12,9 +12,9 @@
           "type": "Active",
           "link": {
             "type": "String",
-            "topicSearch": "(.*)/climate/(.*)/mode/state",
-            "topicGet": "(1)/climate/(2)/mode/state",
-            "topicSet": "(1)/climate/(2)/mode/command",
+            "topicSearch": "(.*)/tion-status",
+            "topicGet": "(1)/climate/(1)/mode/state",
+            "topicSet": "(1)/climate/(1)/mode/command",
             "map": {
               "INACTIVE": "off",
               "ACTIVE": "fan_only;heat"
@@ -29,7 +29,8 @@
           "type": "CurrentTemperature",
           "link": {
             "type": "Double",
-            "topicGet": "(1)/climate/(2)/current_temperature/state",
+            "topicGet": "(1)/climate/(1)/current_temperature/state",
+            "inFunc": "parseFloat(value) || 0",
             "checkValue": true
           }
         },
@@ -37,8 +38,9 @@
           "type": "HeatingThresholdTemperature",
           "link": {
             "type": "Integer",
-            "topicGet": "(1)/climate/(2)/target_temperature/state",
-            "topicSet": "(1)/climate/(2)/target_temperature/command"
+            "topicGet": "(1)/climate/(1)/target_temperature/state",
+            "topicSet": "(1)/climate/(1)/target_temperature/command",
+            "inFunc": "parseInt(value) || 0"
           },
           "minValue": 0,
           "maxValue": 30,
@@ -49,14 +51,15 @@
           "type": "CoolingThresholdTemperature",
           "link": {
             "type": "Integer",
-            "topicGet": "(1)/climate/(2)/target_temperature/state"
+            "topicGet": "(1)/climate/(1)/target_temperature/state",
+            "inFunc": "parseInt(value) || 0"
           }
         },
         {
           "type": "CurrentHeaterCoolerState",
           "link": {
             "type": "String",
-            "topicGet": "(1)/climate/(2)/mode/state",
+            "topicGet": "(1)/climate/(1)/mode/state",
             "map": {
               "INACTIVE": "off",
               "HEATING": "heat",
@@ -69,8 +72,8 @@
           "type": "TargetHeaterCoolerState",
           "link": {
             "type": "String",
-            "topicGet": "(1)/climate/(2)/mode/state",
-            "topicSet": "(1)/climate/(2)/mode/command",
+            "topicGet": "(1)/climate/(1)/mode/state",
+            "topicSet": "(1)/climate/(1)/mode/command",
             "map": {
               "HEAT": "heat",
               "COOL": "fan_only"
@@ -83,8 +86,8 @@
           "unit": "",
           "link": {
             "type": "Integer",
-            "topicGet": "(1)/climate/(2)/fan_mode/state",
-            "topicSet": "(1)/climate/(2)/fan_mode/command"
+            "topicGet": "(1)/climate/(1)/fan_mode/state",
+            "topicSet": "(1)/climate/(1)/fan_mode/command"
           },
           "minValue": 1,
           "maxValue": 6
@@ -120,8 +123,8 @@
             "topicGet": "(1)/switch/boost/state",
             "topicSet": "(1)/switch/boost/command",
             "map": {
-                "false": "OFF",
-                "true": "ON"
+              "false": "OFF",
+              "true": "ON"
             }
           }
         }
@@ -134,8 +137,23 @@
         {
           "type": "CurrentTemperature",
           "link": {
-            "type": "Double",
-            "topicGet": "(1)/sensor/outdoor_temperature/state"
+            "type": "Integer",
+            "topicGet": "(1)/sensor/outdoor_temperature/state",
+            "inFunc": "parseInt(value) || 0"
+          }
+        }
+      ]
+    },
+    {
+      "name":"Температура ESP",
+      "type":"TemperatureSensor",
+      "characteristics":[
+        {
+          "type":"CurrentTemperature",
+          "link":{
+            "type":"Double",
+            "topicGet":"(1)/sensor/esp_temperature/state",
+            "inFunc": "parseFloat(value) || 0"
           }
         }
       ]
@@ -158,10 +176,11 @@
         {
           "type": "FilterLifeLevel",
           "link": {
-            "type": "Double",
+            "type": "Integer",
             "topicGet": "(1)/sensor/filter_time_left/state",
-            "inFunc": "100-value/180*100"
-          }
+            "inFunc": "value/180*100"
+          },
+          "unit": "%"
         },
         {
           "type": "ResetFilterIndication",
@@ -182,7 +201,22 @@
           "type": "C_Watt",
           "link": {
             "type": "Integer",
-            "topicGet": "(1)/sensor/heater_power/state"
+            "topicGet": "(1)/sensor/heater_power/state",
+            "inFunc": "parseInt(value) || 0"
+          }
+        }
+      ]
+    },
+    {
+      "type": "C_GasMeter",
+      "name": "Производительность",
+      "characteristics": [
+        {
+          "type": "C_CubicMeter",
+          "link": {
+            "type": "Integer",
+            "topicGet": "(1)/sensor/productivity/state",
+            "inFunc": "parseInt(value) || 0"
           }
         }
       ]
@@ -229,12 +263,14 @@
     },
     {
       "link": {
-        "type": "Float",
+        "type": "Integer",
         "topicGet": "(1)/number/boost_time/state",
-        "topicSet": "(1)/number/boost_time/command"
+        "topicSet": "(1)/number/boost_time/command",
+        "inFunc": "parseInt(value) || 0"
       },
-      "name": "Турбо, время работы (минут)",
-      "type": "Float",
+      "name": "Турбо, время работы",
+      "type": "Integer",
+      "unit": " минут",
       "minValue": 1,
       "maxValue": 20,
       "minStep": 1
@@ -242,10 +278,13 @@
     {
       "link": {
         "type": "Integer",
-        "topicGet": "(1)/sensor/filter_time_left/state"
+        "topicGet": "(1)/sensor/filter_time_left/state",
+        "inFunc": "parseFloat(value) || 0"
       },
-      "name": "Дней до замены фильтров",
+      "name": "До замены фильтров",
+      "unit": " дней",
       "type": "Integer",
+      "write": false,
       "input": "status"
     },
     {
@@ -257,8 +296,8 @@
       },
       "type": "Boolean",
       "name": "перезагрузить",
-      "input": "button",
-      "value": ""
+      "inputType": "BUTTON",
+      "value": true
     }
   ]
 }
