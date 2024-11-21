@@ -30,7 +30,6 @@
           "link": {
             "type": "Double",
             "topicGet": "(1)/climate/(1)/current_temperature/state",
-            "inFunc": "parseFloat(value) || 0",
             "checkValue": true
           }
         },
@@ -39,8 +38,7 @@
           "link": {
             "type": "Integer",
             "topicGet": "(1)/climate/(1)/target_temperature/state",
-            "topicSet": "(1)/climate/(1)/target_temperature/command",
-            "inFunc": "parseInt(value) || 0"
+            "topicSet": "(1)/climate/(1)/target_temperature/command"
           },
           "minValue": 0,
           "maxValue": 30,
@@ -51,8 +49,7 @@
           "type": "CoolingThresholdTemperature",
           "link": {
             "type": "Integer",
-            "topicGet": "(1)/climate/(1)/target_temperature/state",
-            "inFunc": "parseInt(value) || 0"
+            "topicGet": "(1)/climate/(1)/target_temperature/state"
           }
         },
         {
@@ -138,8 +135,7 @@
           "type": "CurrentTemperature",
           "link": {
             "type": "Integer",
-            "topicGet": "(1)/sensor/outdoor_temperature/state",
-            "inFunc": "parseInt(value) || 0"
+            "topicGet": "(1)/sensor/outdoor_temperature/state"
           }
         }
       ]
@@ -152,8 +148,7 @@
           "type":"CurrentTemperature",
           "link":{
             "type":"Double",
-            "topicGet":"(1)/sensor/esp_temperature/state",
-            "inFunc": "parseFloat(value) || 0"
+            "topicGet":"(1)/sensor/esp_temperature/state"
           }
         }
       ]
@@ -174,15 +169,6 @@
           }
         },
         {
-          "type": "FilterLifeLevel",
-          "link": {
-            "type": "Integer",
-            "topicGet": "(1)/sensor/filter_time_left/state",
-            "inFunc": "value/180*100"
-          },
-          "unit": "%"
-        },
-        {
           "type": "ResetFilterIndication",
           "link": {
             "type": "String",
@@ -201,8 +187,7 @@
           "type": "C_Watt",
           "link": {
             "type": "Integer",
-            "topicGet": "(1)/sensor/heater_power/state",
-            "inFunc": "parseInt(value) || 0"
+            "topicGet": "(1)/sensor/heater_power/state"
           }
         }
       ]
@@ -215,8 +200,7 @@
           "type": "C_CubicMeter",
           "link": {
             "type": "Integer",
-            "topicGet": "(1)/sensor/productivity/state",
-            "inFunc": "parseInt(value) || 0"
+            "topicGet": "(1)/sensor/productivity/state"
           }
         }
       ]
@@ -263,13 +247,12 @@
     },
     {
       "link": {
-        "type": "Integer",
+        "type": "Double",
         "topicGet": "(1)/number/boost_time/state",
-        "topicSet": "(1)/number/boost_time/command",
-        "inFunc": "parseInt(value) || 0"
+        "topicSet": "(1)/number/boost_time/command"
       },
       "name": "Турбо, время работы",
-      "type": "Integer",
+      "type": "Double",
       "unit": " минут",
       "minValue": 1,
       "maxValue": 20,
@@ -278,8 +261,7 @@
     {
       "link": {
         "type": "Integer",
-        "topicGet": "(1)/sensor/filter_time_left/state",
-        "inFunc": "parseFloat(value) || 0"
+        "topicGet": "(1)/sensor/filter_time_left/state"
       },
       "name": "До замены фильтров",
       "unit": " дней",
