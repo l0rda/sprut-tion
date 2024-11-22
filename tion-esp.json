@@ -21,7 +21,7 @@
             },
             "outMap": {
               "INACTIVE": "off",
-              "ACTIVE": "fan_only"
+              "ACTIVE": "heat_cool"
             }
           }
         },
@@ -213,7 +213,7 @@
         "topicGet": "(1)/sensor/version/state"
       },
       "name": "Прошивка",
-      "input": "status",
+      "inputType": "STATUS",
       "write": false,
       "type": "String"
     },
@@ -267,7 +267,7 @@
       "unit": " дней",
       "type": "Integer",
       "write": false,
-      "input": "status"
+      "inputType": "STATUS"
     },
     {
       "link": {
